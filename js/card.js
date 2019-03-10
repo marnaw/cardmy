@@ -150,49 +150,48 @@ class Cards {
     let mywindow = window.open('', 'Print', 'height=600,width=800');
     mywindow.document.write(`<html><head>`);
     mywindow.document.write('</head><body>');
-    const styleTh = `style="padding: 2px; border: 1px solid black;"`;
-    const styleTable = `style="border-collapse: collapse;padding: 2px;border: 1px solid black; font-size: 10px;"`;
+    const styleTh = `style="padding: 2px; border: 0px solid black;"`;
+    const styleTable = `style="border-collapse: collapse;padding: 2px;border: 0px solid black; font-size: 10px;"`;
     const styleTd = `style="min-width: 80px; font-size: 10px; padding: 4px;border: 1px solid black;text-align:center;"`;
     const styleTdLast = `style="padding: 3px;border: 0;text-align:right"`;
     mywindow.document.write(` ${this.getRaport('#checkbox_2','Karty z dnia: ',this.getDate())}`);
     mywindow.document.write(`
     <table ${styleTable}>`)
     mywindow.document.write(`<tr>`);
-
-    if (this.payment.length < 6) {
+    if (this.payment.length < 3) {
       for (let i = 0; i < this.payment.length; i++) {
         mywindow.document.write(`
          <th ${styleTh}>Numer płatności</th>
-        <th ${styleTh}>Kwota</th>
-       
-    `);
+         <th ${styleTh}>Kwota</th>
+         <th style="width: 10px"></th>
+        `);
       }
     } else {
-      for (let j = 0; j < 6; j++) {
+      for (let j = 0; j < 3; j++) {
         mywindow.document.write(`
          <th ${styleTh}>Numer płatności</th>
-        <th ${styleTh}>Kwota</th>
-       
+         <th ${styleTh}>Kwota</th>
+         <th style="width: 10px"></th>
     `);
       }
     }
     mywindow.document.write(`</tr>`);
-    mywindow.document.write(
-      `<tr>`)
+    mywindow.document.write(`
+    <tr>`)
     let i = 0;
     this.payment.forEach(value => {
       i++;
       mywindow.document.write(
-        `    <td ${styleTd}>
-                    ${value.id}
-            </td>
-            <td ${styleTd}>
-                    ${value.amount} zł
-           </td>    
-        `)
-      if (i % 6 == 0) {
-        mywindow.document.write(`<tr ${styleTh }>
-            </tr>`)
+        `<td ${styleTd}>
+                ${value.id}
+          </td>
+          <td ${styleTd}>
+                ${value.amount} zł
+          </td>    
+          <td style="width: 10px"></td>
+         `)
+      if (i % 3 == 0) {
+        mywindow.document.write(`<tr ${styleTh }></tr>`)
       }
     })
 
@@ -203,8 +202,7 @@ class Cards {
           <td ${styleTd}>
               ${this.getRaport('#checkbox_3','Ilość kart: ',this.payment.length)}
          </td>
-
-          <td ${styleTd}>
+         <td ${styleTd}>
                ${this.getRaport('#checkbox_4','SUMA: ',this.sumAmount(this.payment))} zł
           </td>
         </tr>
